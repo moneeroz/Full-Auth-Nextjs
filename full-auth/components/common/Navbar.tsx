@@ -5,12 +5,10 @@ import { logout as setLogout } from "@/redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { NavLink } from ".";
 
 const Navbar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
@@ -23,9 +21,6 @@ const Navbar = () => {
       .unwrap()
       .then(() => {
         dispatch(setLogout());
-      })
-      .finally(() => {
-        router.push("/");
       });
   };
 
