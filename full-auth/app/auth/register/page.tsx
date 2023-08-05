@@ -1,5 +1,11 @@
 import { RegisterForm } from "@/components/forms";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Full Auth | Register",
+  description: "Full Auth register page",
+};
 
 const page = () => {
   return (
