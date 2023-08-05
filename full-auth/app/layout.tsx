@@ -1,9 +1,9 @@
-import { Footer, Navbar, Setup } from "@/components";
+import { Footer, Navbar } from "@/components/common";
+import { Setup } from "@/components/utils";
 import "@/styles/globals.css";
 import Provider from "@/redux/provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Spinner from "@/components/common/Spinner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +23,9 @@ export default function RootLayout({
         <Provider>
           <Setup />
           <Navbar />
-          <div>{children}</div>
+          <div className="mx-auto my-8 max-w-7xl px-2 sm:px-6 lg:px-8">
+            {children}
+          </div>
           <Footer />
         </Provider>
       </body>
