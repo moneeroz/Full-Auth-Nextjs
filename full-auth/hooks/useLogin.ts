@@ -1,21 +1,21 @@
-import { useRegisterMutation } from "@/redux/features/authApiSlice";
+import { useLoginMutation } from "@/redux/features/authApiSlice";
+import { setAuth } from "@/redux/features/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
-const useRegister = () => {
+const useLogin = () => {
   const router = useRouter();
-  const [register, { isLoading }] = useRegisterMutation();
+  const dispatch = useAppDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
     email: "",
     password: "",
-    re_password: "",
   });
 
-  const { first_name, last_name, email, password, re_password } = formData;
+  const { email, password } = formData;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,27 +25,25 @@ const useRegister = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    register({ first_name, last_name, email, password, re_password })
+    login({ email, password })
       .unwrap()
       .then(() => {
-        toast.success("Please check email to verify account");
-        router.push("/auth/login");
+        dispatch(setAuth());
+        toast.success("Logged in");
+        router.push("/dashboard");
       })
       .catch(() => {
-        toast.error("Failed to register account");
+        toast.error("Failed to log in");
       });
   };
 
   return {
-    first_name,
-    last_name,
     email,
     password,
-    re_password,
     isLoading,
     handleChange,
     handleSubmit,
   };
 };
 
-export default useRegister;
+export default useLogin;
